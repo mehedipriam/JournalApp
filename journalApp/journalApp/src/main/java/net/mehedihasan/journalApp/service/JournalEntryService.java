@@ -24,7 +24,7 @@ public class JournalEntryService {
         return journalEntryRepository.findAll();
     }
 
-    public Optional<JournalEntry> findBy(ObjectId id){
+    public Optional<JournalEntry> findById(ObjectId id){
         return journalEntryRepository.findById(id);
     }
 
