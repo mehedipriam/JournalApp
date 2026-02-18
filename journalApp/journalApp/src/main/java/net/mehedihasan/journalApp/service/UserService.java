@@ -1,8 +1,6 @@
 package net.mehedihasan.journalApp.service;
 
-import net.mehedihasan.journalApp.entity.JournalEntry;
 import net.mehedihasan.journalApp.entity.User;
-import net.mehedihasan.journalApp.repository.JournalEntryRepository;
 import net.mehedihasan.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -27,13 +25,13 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void saveEntry(User user){
+    public void saveNewUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList("User"));
         userRepository.save(user);
     }
 
-    public void saveNewUser(User user){
+    public void saveUser(User user){
         userRepository.save(user);
     }
 
