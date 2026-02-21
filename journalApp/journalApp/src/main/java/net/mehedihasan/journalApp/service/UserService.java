@@ -1,5 +1,6 @@
 package net.mehedihasan.journalApp.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.mehedihasan.journalApp.entity.User;
 import net.mehedihasan.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 
 @Component
+@Slf4j
 public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
@@ -25,10 +27,22 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void saveNewUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("USER"));
-        userRepository.save(user);
+    public boolean saveNewUser(User user){
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(Arrays.asList("USER"));
+            userRepository.save(user);
+            return true;
+        }
+        catch (Exception e){
+            log.error("Error occurred for {} : ", user.getUserName(),e);
+            log.error("for testing");
+            log.warn("for testing");
+            log.info("for testing");
+            log.debug("for testing");
+            log.trace("for testing");
+            return false;
+        }
     }
 
     public void saveAdmin(User user){
